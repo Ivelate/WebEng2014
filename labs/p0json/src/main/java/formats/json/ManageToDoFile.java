@@ -100,11 +100,11 @@ public class ManageToDoFile {
 						System.out.println("ToDo file is empty");
 					} 
 					else {
-						System.out.println("Insert ToDo number to delete (0 to cancel)");
+						System.out.println("Insert ToDo number (1,"+todoList.getSize()+") to delete (0 to cancel)");
 						int num=getNumBetween(0,todoList.getSize(),input);
 						if(num!=0)
 						{
-							todoList.removeToDoAt(num);
+							todoList.removeToDoAt(num-1);
 							System.out.println("Done");
 						}
 					}
