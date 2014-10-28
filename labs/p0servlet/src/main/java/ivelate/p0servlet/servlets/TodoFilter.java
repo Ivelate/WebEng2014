@@ -37,8 +37,8 @@ public class TodoFilter extends HttpServlet {
 					ToDoList.class);
 		} catch (FileNotFoundException e) {
 			System.out.println(DEFAULT_FILE_NAME
-					+ ": File not found.  Server will shut down.");
-			System.exit(1);
+					+ ": File not found.  ToDos can't be loaded. (WARNING)");
+			todoList=new ToDoList();
 		}
 	}
 	
@@ -50,7 +50,9 @@ public class TodoFilter extends HttpServlet {
 		String project = req.getParameter("project_text");
 		String priorityS = req.getParameter("priority_text");
 		String priority_filter=req.getParameter("priority_filter");
-		int priority_filter_num=priority_filter.equals("le")? -1 : priority_filter.equals("ge")? 1 : 0;
+		int priority_filter_num=priority_filter.equals("le")? 	ToDoList.PRIORITYFILTER_LE : 
+			priority_filter.equals("ge")? 						ToDoList.PRIORITYFILTER_GE : 
+																ToDoList.PRIORITYFILTER_EQ ;
 		Priority priority=null;
 		String warningMessage="";
 		for(Priority p:Priority.values())
@@ -60,25 +62,25 @@ public class TodoFilter extends HttpServlet {
 				break;
 			}
 		}
+		//Shows a warning if the introduced priority doesnt exists and the field wasn't empty (Considering that the user misswrited the priority)
 		if(priority==null && !priorityS.isEmpty()){
 			warningMessage+="<p>Unknown priority. Not applying priority filter </p>";
 		}
 		
+		//Applies filters
 		List<ToDo> matchedToDos=todoList.getToDosWhoMatches(task, context, project, priority, priority_filter_num);
+		if(matchedToDos.isEmpty()) warningMessage+="<p>No ToDos found who matches the introduced criteria</p>";
+
+		//Writes response
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.print("<html><head><title>Matching ToDos</title></head>"
 				+ "<body><h1> Matching ToDos </h1>"+warningMessage+"<table>");
+		//Writes each filtered ToDo in HTML
 		for(ToDo t:matchedToDos)
 		{
 			out.print(t.toHTML());
 		}
 		out.println("</table></body></html>");
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		doGet(req, resp);
 	}
 }
