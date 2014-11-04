@@ -1,0 +1,5 @@
+<endpoints version="2.0"
+ xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
+  <endpoint implementation="ivelate.p1.soapserver.TodoWebService"
+   name="TodoWebService" url-pattern="/TodoWebService"/>
+</endpoints>
