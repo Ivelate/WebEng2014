@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>ToDo Viewer</title>
+</head>
+<body>
+	<h1>ToDo Viewer</h1>
+	<p> Note: Blank form -> No filter applied </p>
+	<hr>
+	<form method="get" action="todoFilter">
+		<table>
+			<tr>
+				<td>Filter by task</td> 
+				<td><input type="text" name="task_text"></td>
+			</tr>
+			<tr>
+				<td>Filter by context </td> 
+				<td><input type="text" name="context_text"></td>
+			</tr>
+			<tr>
+				<td>Filter by project </td> 
+				<td><input type="text" name="project_text"></td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;">Filter by priority </td> 
+				<td><input type="text" name="priority_text"> <br>
+			<input type="radio" name="priority_filter" value="eq" checked>Equal<br>
+			<input type="radio" name="priority_filter" value="ge">Greater or equal<br> 
+			<input type="radio" name="priority_filter" value="le">Less or equal</td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

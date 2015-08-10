@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3'
+}
+
+task manageToDo(type: JavaExec, dependsOn: classes) {
+	if ('manageToDo' in gradle.startParameter.taskNames &&
+	    gradle.startParameter.logLevel < LogLevel.QUIET) {
+        println "Note: This program works best in quiet mode (gradle -q manageToDo)"
+    }
+    group 			= 'Formats JSON'
+    description 	= 'Manage a ToDo file'
+    main 			= 'ivelate.p0json.todo.ManageToDoFile'
+	classpath 		= sourceSets.main.runtimeClasspath
+	standardInput	= System.in
+} 
