@@ -1,4 +1,4 @@
-# ToDo filter Server
-This project contains a server that shows and filters existing ToDos stored in a file depending on the user input. 
+# ToDo WebSocket client
+This non-java, javascript project contains a websocket client wich communicates with a WebSocket ToDo server located at port 8081. This webpage shows a dynamic ToDo list wich is updated asynchronously and automatically when a update happens in the ToDo list at the server. 
 
-Deploy your code to a [Jetty](http://www.eclipse.org/jetty/) server with ```gradle jettyEclipseRun```. Then, open the static HTML document served at [http://localhost:8080/](http://localhost:8080/) which sends requests to the servlet at [http://localhost:8080/hi](http://localhost:8080/hi).
+Deploy your code to a [Jetty](http://www.eclipse.org/jetty/) server with ```gradle jettyEclipseRun```. Then, open the  HTML document served at [http://localhost:8080/](http://localhost:8080/) 
