@@ -1,20 +1,4 @@
-# Hello World! Server (web application)
-This project contains a demonstration of a web service build with [JAX-WS](http://docs.oracle.com/javaee/6/tutorial/doc/bnayl.html). 
+# ToDo repository, WebSocket Server edition
+This project contains a WebSocket ToDo repository server, fully asynchronous, using a listener register schema, saving the Sessions into a Listener list and notifying them for each update to the ToDo list. You can test this functionality using two or more clients at the same time.
 
-Deploy your code to a [Jetty](http://www.eclipse.org/jetty/) server with ```gradle jettyEclipseRun```. Then, open the page at [http://localhost:8080/](http://localhost:8080/). 
-
-The code is quite simple:
-```java
-@WebService
-public class HelloWebService {
-	
-	@WebMethod()
-	public String sayHello(String name) {
-		return "Hello "+name +"!";
-	}
-}
-```
-
-The service endpoint is at [http://localhost:8080/helloWorld](http://localhost:8080/helloWorld) (see [WEB-INF/sun-jaxws.xml](src/main/webapp/WEB-INF/sun-jaxws.xml) for the endpoint mapping). 
-
-Note that [WEB-INF/web.xml](src/main/webapp/WEB-INF/web.xml) has a ```<servlet-mapping>``` entry that matches ```/hello*``` to requests to the JAX-WS runtime.
+Deploy your code with ```gradle server``` at port 8081
