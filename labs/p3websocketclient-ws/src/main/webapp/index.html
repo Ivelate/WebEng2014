@@ -1,0 +1,136 @@
+<html>
+<head>
+<title>ToDo Viewer</title>
+<style>
+#todoTable td{
+	style="border-spacing: 10px;"
+}
+tr.blackseparator td{
+	border-bottom: 1px solid #000;
+}
+</style>
+<script type="text/javascript">
+	var ws;
+	function init()
+	{
+		try {
+			ws = new WebSocket("ws://localhost:8081/todoWebSocketService");
+			
+			 ws.onmessage = function (evt) 
+		        { 
+		           var msg = evt.data;
+		           updateTable(msg);
+		        };
+					
+		        ws.onclose = function()
+		        { 
+		        	document.getElementById('todoTable').innerHTML = "Server disconnected!";
+		        };
+		}
+		catch(err) {
+			document.getElementById('todoTable').innerHTML = "Server disconnected!";
+		}
+	}
+	function updateTable(msg)
+	{
+		var todos=JSON.parse(msg);
+		var tableHTML="<tr class=\"blackseparator\"><td>Task   </td><td>Project   </td><td>Context   </td><td>Priority   </td><td></td></tr>"
+		for(var i = 0; i < todos.length; i++) {
+		    var todo = todos[i];
+		    
+		    var task=typeof todo.task =="undefined"?"":todo.task;
+		    var project=typeof todo.project =="undefined"?"":todo.project;
+		    var context=typeof todo.context =="undefined"?"":todo.context;
+		    var priority=typeof todo.priority =="undefined"?"":todo.priority;
+		    
+		    tableHTML+="<tr><td>"+task+"</td><td>"+project+"</td><td>"+context+"</td><td>"+priority+"</td>";
+		    tableHTML+="<td><input type=\"button\" value=\"X\" onclick=\"removeTodo(\'"+task+"\')\" style=\"color: red;\"/></td></tr>";
+		}
+		document.getElementById('todoTable').innerHTML = tableHTML;
+	}
+	function removeTodo(task)
+	{
+		ws.send("removeTodo;"+task);
+	}
+	function addTodo(task,context,project,priority)
+	{
+		ws.send("addTodo;{\"task\":\""+task+"\",\"context\":\""+context+"\",\"project\":\""+project+"\",\"priority\":\""+priority+"\"}");
+		//ws.send("addTodo;{\"task\":\""+task+"\"}");
+	}
+	function getRadioValue()
+	{
+		var radios = document.getElementsByName('priority_text');
+
+		for (var i = 0, length = radios.length; i < length; i++) {
+		    if (radios[i].checked) {
+		        // do whatever you want with the checked radio
+		        return radios[i].value;
+		    }
+		}
+		return "";
+	}
+</script>
+</head>
+<body onload="init()">
+<table>
+<tr>
+	<td  valign=top>
+	<h1>ToDo Viewer (Dynamically updated)</h1>
+	<hr>
+	<table id="todoTable" style="border-collapse: collapse;">
+
+	</table>
+	</td>
+	<td>
+	<div style="width:50px"></div>
+	</td>
+	<td valign=top>
+		<h1>ToDo Adder</h1>
+		<hr>
+		<form>
+		<table>
+			<tr>
+				<td>Task</td> 
+				<td><input type="text" name="task_text" id="tasktext"></td>
+			</tr>
+			<tr>
+				<td>Context </td> 
+				<td><input type="text" name="context_text" id="contexttext"></td>
+			</tr>
+			<tr>
+				<td>Project </td> 
+				<td><input type="text" name="project_text" id="projecttext"></td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;">Priority </td> 
+				<td>
+				<input type="radio" name="priority_text" value="VERY_HIGH" checked>Very high<br>
+				<input type="radio" name="priority_text" value="HIGH">High<br> 
+				<input type="radio" name="priority_text" value="MEDIUM">Medium<br>
+				<input type="radio" name="priority_text" value="LOW">Low<br>
+				<input type="radio" name="priority_text" value="VERY_LOW">Very low</td>
+			</tr>
+		</table>
+		<input type="button" value="Submit" onclick="addTodo(document.getElementById('tasktext').value,document.getElementById('contexttext').value,document.getElementById('projecttext').value,getRadioValue())">
+	</form>
+	</td>
+	<td>
+	<div style="width:50px"></div>
+	</td>
+	<td valign=top>
+		<h1>ToDo Remover</h1>
+		<hr>
+		<form>
+		<table>
+			<tr>
+				<td>Task</td> 
+				<td><input type="text" name="task_text" id="removeTodoText"></td>
+			</tr>
+		</table>
+		<input type="button" value="Submit" onclick="removeTodo(document.getElementById('removeTodoText').value)">
+	</form>
+	</td>
+	</tr>
+</table>
+</body>
+</html>

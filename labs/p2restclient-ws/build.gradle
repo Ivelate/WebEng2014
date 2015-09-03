@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+ 
+    dependencies {
+        classpath (group: 'com.sahlbach.gradle', name: 'gradle-jetty-eclipse-plugin', version: '1.9.+')
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jettyEclipse'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+
+repositories {
+   maven { url "http://repo.maven.apache.org/maven2" }
+   mavenCentral()                                               
+}
+
+dependencies {
+   compile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile group: 'com.mashape.unirest', name: 'unirest-java', version:'1.4.6'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.3.6'
+    compile group: 'org.apache.httpcomponents', name: 'httpasyncclient', version:'4.0.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpmime', version:'4.3.6'
+    compile group: 'org.json', name: 'json', version:'20140107'
+}

@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>ToDo Viewer</title>
+</head>
+<body>
+<table>
+<tr>
+	<td  valign=top>
+	<h1>ToDo Viewer</h1>
+	<p> Note: Blank form -> No filter applied </p>
+	<hr>
+	<form method="get" action="todoList">
+		<table>
+			<tr>
+				<td>Filter by task</td> 
+				<td><input type="text" name="task_text"></td>
+			</tr>
+			<tr>
+				<td>Filter by context </td> 
+				<td><input type="text" name="context_text"></td>
+			</tr>
+			<tr>
+				<td>Filter by project </td> 
+				<td><input type="text" name="project_text"></td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;">Filter by priority </td> 
+				<td><input type="text" name="priority_text"> <br>
+			<input type="radio" name="priority_filter" value="eq" checked>Equal<br>
+			<input type="radio" name="priority_filter" value="ge">Greater or equal<br> 
+			<input type="radio" name="priority_filter" value="le">Less or equal</td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	</td>
+	<td>
+	<div style="width:50px"></div>
+	</td>
+	<td valign=top>
+		<h1>ToDo Adder</h1>
+		<hr>
+		<form method="get" action="todoAdd">
+		<table>
+			<tr>
+				<td>Task</td> 
+				<td><input type="text" name="task_text"></td>
+			</tr>
+			<tr>
+				<td>Context </td> 
+				<td><input type="text" name="context_text"></td>
+			</tr>
+			<tr>
+				<td>Project </td> 
+				<td><input type="text" name="project_text"></td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;">Priority </td> 
+				<td>
+				<input type="radio" name="priority_text" value="VERY_HIGH" checked>Very high<br>
+				<input type="radio" name="priority_text" value="HIGH">High<br> 
+				<input type="radio" name="priority_text" value="MEDIUM">Medium<br>
+				<input type="radio" name="priority_text" value="LOW">Low<br>
+				<input type="radio" name="priority_text" value="VERY_LOW">Very low</td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	</td>
+	<td>
+	<div style="width:50px"></div>
+	</td>
+	<td valign=top>
+		<h1>ToDo Remover</h1>
+		<hr>
+		<form method="get" action="todoRemove">
+		<table>
+			<tr>
+				<td>Task</td> 
+				<td><input type="text" name="task_text"></td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	</td>
+	</tr>
+</table>
+</body>
+</html>

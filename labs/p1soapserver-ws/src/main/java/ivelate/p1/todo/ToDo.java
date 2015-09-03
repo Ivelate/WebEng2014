@@ -23,6 +23,10 @@ public class ToDo
 				+"Project:  "+getProject()+"\n"
 				+"Priority: "+getPriority().name()+"\n";
 	}
+	public String toHTML()
+	{
+		return "<tr><td>"+getTask()+"</td><td>"+getContext()+"</td><td>"+getProject()+"</td><td>"+getPriority()+"</td></tr>";
+	}
 	/******** GETTERS AND SETTERS **********/
 	
 	public String getTask() {

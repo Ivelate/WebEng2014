@@ -11,19 +11,28 @@ import ivelate.p1.todo.*;
 public class TodoWebService {
 	
 	@WebMethod
-	public void addToDo(ToDo t)
+	public void addToDo(String task,String context,String project,Priority priority)
 	{
-		ToDoFileManager.getToDoList().addToDo(t);
+		ToDoFileManager.readFile();
+		ToDoFileManager.getToDoList().addToDo(new ToDo(task,context,project,priority));
+		ToDoFileManager.saveFile();
 	}
 	@WebMethod
-	public void removeToDo(ToDo t)
+	public boolean removeToDo(String task)
 	{
-		ToDoFileManager.getToDoList().removeToDo(t);
+		ToDoFileManager.readFile();
+		boolean removed=ToDoFileManager.getToDoList().removeToDoWithTask(task);
+		
+		
+		if(removed) ToDoFileManager.saveFile();
+		
+		return removed;
 	}
-	/*@WebMethod
+	@WebMethod
 	public List<ToDo> listToDos()
 	{
-		ToDoFileManager.getToDoList().;
-	}*/
+		ToDoFileManager.readFile();
+		return ToDoFileManager.getToDoList().getRawList();
+	}
 
 }

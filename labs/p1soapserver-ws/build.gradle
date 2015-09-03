@@ -24,3 +24,10 @@ dependencies {
 	compile 'com.google.code.gson:gson:2.3'
 	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }
+
+task server(type: JavaExec){
+    group 			= 'ToDo SOAP Server'
+    description 	= 'Deploys a ToDo SOAP Server manager'
+    main 			= 'ivelate.p1.soapserver.ServerDeployer'
+	classpath 		= sourceSets.main.runtimeClasspath
+} 
